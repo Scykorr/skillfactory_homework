@@ -1,4 +1,4 @@
-from my_exceptions import OutBoardError, BoardWrongShipException
+from my_exceptions import OutBoardError, BoardWrongShipException, CellRepeatError
 
 
 class Coord:
@@ -115,7 +115,7 @@ class GameBoard:
             raise OutBoardError()
 
         if dot in self.busy:
-            raise OutBoardError()
+            raise CellRepeatError
 
         self.busy.append(dot)
 
