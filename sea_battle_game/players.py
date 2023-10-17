@@ -1,4 +1,4 @@
-from main import Coord
+from main_elements import Coord
 from random import randint
 from my_exceptions import OutBoardError
 

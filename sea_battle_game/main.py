@@ -1,5 +1,5 @@
 from random import randint
-from my_exceptions import BoardWrongShipException, OutBoardError, CellRepeatError
+from my_exceptions import BoardWrongShipException
 from players import Computer, User
 from main_elements import GameBoard, Ship, Coord
 
@@ -39,15 +39,13 @@ class Game:
         return board
 
     def get_first_page(self):
-        self.user.name = input('Введите свой игровой nickname: ')
-        print("-------------------")
-        print("  Приветсвуем вас  ")
-        print("      в игре       ")
-        print("    морской бой    ")
-        print("-------------------")
-        print(" формат ввода: x y ")
-        print(" x - номер строки  ")
-        print(" y - номер столбца ")
+        self.user.name = input('Игра - Морской Бой\n'
+                               'Введите свой игровой nickname: ')
+        print(f"\nПриветсвуем Вас, {self.user.name}!\n\n"
+              f"формат ввода: x y\n"
+              f" x - номер строки\n"
+              f" y - номер столбца\n")
+        input('Для начала игры нажмите клавишу "Enter"')
 
     def play_game(self):
         num = 0
