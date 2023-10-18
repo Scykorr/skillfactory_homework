@@ -115,7 +115,7 @@ class GameBoard:
             raise OutBoardError()
 
         if dot in self.busy:
-            raise CellRepeatError
+            raise CellRepeatError()
 
         self.busy.append(dot)
 
@@ -132,7 +132,7 @@ class GameBoard:
                     print("Корабль ранен!")
                     return True
 
-        self.field[dot.x_coord][dot.y_coord] = "."
+        self.field[dot.x_coord][dot.y_coord] = "T"
         print("Мимо!")
         return False
 

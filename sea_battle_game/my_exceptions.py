@@ -1,16 +1,14 @@
-class BoardException(Exception):
-    pass
 
 
-class OutBoardError(BoardException):
+class OutBoardError(Exception):
     def __str__(self):
         return "Выбранная клетка находится за пределами игрового поля!"
 
 
-class CellRepeatError(BoardException):
+class CellRepeatError(Exception):
     def __str__(self):
-        return "В выбранную клетку Вы уже стреляли"
+        return "В выбранную клетку Вы уже стреляли!"
 
 
-class BoardWrongShipException(BoardException):
+class BoardWrongShipException(Exception):
     pass

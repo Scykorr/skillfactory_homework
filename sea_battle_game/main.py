@@ -40,7 +40,7 @@ class Game:
 
     def get_first_page(self):
         self.user.name = input('Игра - Морской Бой\n'
-                               'Введите свой игровой nickname: ')
+                               'Введите Ваш игровой nickname: ')
         print(f"\nПриветсвуем Вас, {self.user.name}!\n\n"
               f"формат ввода: x y\n"
               f" x - номер строки\n"

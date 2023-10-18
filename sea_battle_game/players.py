@@ -1,6 +1,6 @@
 from main_elements import Coord
 from random import randint
-from my_exceptions import OutBoardError
+from my_exceptions import OutBoardError, CellRepeatError
 
 
 class Player:
@@ -18,6 +18,8 @@ class Player:
                 repeat = self.__enemy.shot(target)
                 return repeat
             except OutBoardError as e:
+                print(e)
+            except CellRepeatError as e:
                 print(e)
 
     @property
