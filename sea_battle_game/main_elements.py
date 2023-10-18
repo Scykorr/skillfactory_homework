@@ -1,12 +1,35 @@
+"""
+Модуль, содержащий основные классы для формирования игры
+"""
+
 from my_exceptions import OutBoardError, BoardWrongShipException, CellRepeatError
 
 
 class Coord:
     """
     Класс, описывающий координату на игровом поле
+
+    ...
+
+    Attributes
+    ----------
+        __x_coord : int
+            координата х
+        __y_coord : int
+            координата у
+    Methods
+    -------
+        ask(self) -> None:
+            Метод, возвращающий исключение NotImplementedError
+        move(self) -> bool:
+            Метод, отвечающий за попадание игрока в клетку.
+        board(self) -> GameBoard:
+            Геттер объекта "игровое поле" игрока.
+
     """
 
     def __init__(self, x_coord, y_coord):
+
         self.__x_coord = x_coord
         self.__y_coord = y_coord
 

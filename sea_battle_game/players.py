@@ -1,7 +1,10 @@
+"""
+Модуль, содержащий классы игроков
+"""
+
 from main_elements import Coord, GameBoard
 from random import randint
 from my_exceptions import OutBoardError, CellRepeatError
-from typing import Callable, Optional, Any
 
 
 class Player:
@@ -27,6 +30,7 @@ class Player:
             Геттер объекта "игровое поле" игрока.
 
     """
+
     def __init__(self, board, enemy) -> None:
         """
         Конструктор базового класса игрока.
@@ -92,15 +96,13 @@ class Computer(Player):
 
     ...
 
-    Attributes
-    ----------
-
     Methods
     -------
     ask(self) -> Coord:
         Переопределенный метод, возвращающий объект Coord, отвечающий за координаты игрового поля компьютера.
 
     """
+
     def ask(self) -> Coord:
         """
         Переопределенный метод, возвращающий объект Coord, отвечающий за координаты игрового поля компьютера.
@@ -137,6 +139,7 @@ class User(Player):
 
 
     """
+
     def __init__(self, board, enemy):
         """
         Конструктор класса игрок-человек.
