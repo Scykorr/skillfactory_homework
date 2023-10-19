@@ -7,7 +7,7 @@ from my_exceptions import OutBoardError, BoardWrongShipException, CellRepeatErro
 
 class Coord:
     """
-    Класс, описывающий координату на игровом поле
+    Класс, описывающий координату на игровом поле.
 
     ...
 
@@ -19,26 +19,52 @@ class Coord:
             координата у
     Methods
     -------
-        ask(self) -> None:
-            Метод, возвращающий исключение NotImplementedError
-        move(self) -> bool:
-            Метод, отвечающий за попадание игрока в клетку.
-        board(self) -> GameBoard:
-            Геттер объекта "игровое поле" игрока.
+        x_coord(self) -> int:
+            Геттер координаты х.
+        y_coord(self) -> int:
+            Геттер координаты y.
 
     """
 
-    def __init__(self, x_coord, y_coord):
+    def __init__(self, x_coord: int, y_coord: int) -> None:
+        """
+        Конструктор класса координаты.
 
+        Parameters
+        ----------
+            x_coord : int
+                координата х
+            y_coord : int
+                координата y
+        Returns
+        -------
+            None
+        """
         self.__x_coord = x_coord
         self.__y_coord = y_coord
 
     @property
-    def x_coord(self):
+    def x_coord(self) -> int:
+        """
+        Геттер координаты х.
+
+        Returns
+        -------
+            __x_coord : int
+                координата х
+        """
         return self.__x_coord
 
     @property
-    def y_coord(self):
+    def y_coord(self) -> int:
+        """
+        Геттер координаты y.
+
+        Returns
+        -------
+            __y_coord : int
+                координата y
+        """
         return self.__y_coord
 
     def __eq__(self, other):
@@ -49,15 +75,64 @@ class Coord:
 
 
 class Ship:
+    """
+    Класс корабля.
 
-    def __init__(self, first_ship_part, ship_length, direction):
+    ...
+
+    Attributes
+    ----------
+        __first_ship_part : Coord
+            координата начала корабля
+        __ship_length : int
+            длина корабля
+        __direct : int
+            направление размещения корабля
+        __lives : int
+            количество жизней корабля
+
+    Methods
+    -------
+        dots(self) -> list:
+            Метод получения координат корабля.
+        lives(self) -> int:
+            Геттер жизней корабля.
+        lives(self, _lives) -> None:
+            Сеттер жизней корабля.
+
+    """
+
+    def __init__(self, first_ship_part: Coord, ship_length: int, direction: int) -> None:
+        """
+        Конструктор класса корабля.
+
+        Parameters
+        ----------
+            first_ship_part : Coord
+            координата начала корабля
+            ship_length : int
+                длина корабля
+            direction : int
+                направление размещения корабля
+        Returns
+        -------
+            None
+        """
         self.__first_ship_part = first_ship_part
         self.__ship_length = ship_length
         self.__direct = direction
         self.__lives = ship_length
 
     @property
-    def dots(self):
+    def dots(self) -> list:
+        """
+        Метод получения координат корабля.
+
+        Returns
+        -------
+            ship_dots : list
+                список координат корабля
+        """
         ship_dots = []
         for num in range(self.__ship_length):
             cur_x = self.__first_ship_part.x_coord
@@ -74,28 +149,183 @@ class Ship:
         return ship_dots
 
     @property
-    def lives(self):
+    def lives(self) -> int:
+        """
+        Геттер жизней корабля.
+
+        Returns
+        -------
+            __lives : int
+                количество жизней корабля
+        """
         return self.__lives
 
     @lives.setter
-    def lives(self, lives):
-        self.__lives = lives
+    def lives(self, _lives) -> None:
+        """
+        Сеттер жизней корабля.
+
+        Parameters
+        ----------
+            _lives : int
+                количество жизней корабля
+
+        Returns
+        -------
+            None
+        """
+        self.__lives = _lives
 
 
 class GameBoard:
-    def __init__(self, hid=False, size=6):
-        self.size = size
-        self.hid = hid
+    """
+    Класс игрового поля.
 
-        self.count = 0
+    ...
+
+    Attributes
+    ----------
+        __size : int
+            размер игрового поля
+        __hid : bool
+            флаг поля о наличии корабля
+        __count : int
+            счетчик уничтоженных кораблей
+        field : list
+            список, отражающий игровое поле
+        busy : list
+            список клеток, в которые нельзя поставить корабли
+        ships : list
+            список клеток с кораблями
+
+    Methods
+    -------
+
+
+    """
+
+    def __init__(self, hid=False, size=6) -> None:
+        """
+        Конструктор класса игрового поля.
+
+        Parameters
+        ----------
+            hid : bool
+                флаг поля о наличии корабля
+            size : int
+                размер игрового поля
+        Returns
+        -------
+            None
+        """
+        self.__size = size
+        self.__hid = hid
+
+        self.__count = 0
 
         self.field = [["O"] * size for _ in range(size)]
 
         self.busy = []
         self.ships = []
 
-    def add_ship(self, ship):
+    @property
+    def size(self) -> int:
+        """
+        Геттер размера игрового поля.
 
+        Returns
+        -------
+            __size : int
+                размер игрового поля
+        """
+        return self.__size
+
+    @size.setter
+    def size(self, _size: int) -> None:
+        """
+        Сеттер размера игрового поля.
+
+        Parameters
+        ----------
+            _size : int
+                размер игрового поля
+
+        Returns
+        -------
+            None
+        """
+        self.__size = _size
+
+    @property
+    def hid(self) -> bool:
+        """
+        Геттер флага поля о наличии корабля.
+
+        Returns
+        -------
+            _hid : bool
+                флаг поля о наличии корабля
+        """
+        return self.__hid
+
+    @hid.setter
+    def hid(self, _hid: bool) -> None:
+        """
+        Сеттер флага поля о наличии корабля.
+
+        Parameters
+        ----------
+            _hid : bool
+                флаг поля о наличии корабля
+
+        Returns
+        -------
+            None
+        """
+        self.__hid = _hid
+
+    @property
+    def count(self) -> int:
+        """
+        Геттер счетчика подбитых кораблей.
+
+
+        Returns
+        -------
+            __count : int
+                счетчик подбитых кораблей
+        """
+        return self.__count
+
+    @count.setter
+    def count(self, _count: int) -> None:
+        """
+        Сеттер счетчика подбитых кораблей.
+
+        Parameters
+        ----------
+            _count : bool
+                счетчик подбитых кораблей
+
+        Returns
+        -------
+            None
+        """
+        self.__count = _count
+
+    def add_ship(self, ship: Ship) -> None:
+        """
+        Метод добавления корабля на игровое поле.
+
+        Parameters
+        ----------
+            ship : Ship
+                объект класса корабль
+
+        Returns
+        -------
+            None
+        """
         for dot in ship.dots:
             if self.out(dot) or dot in self.busy:
                 raise BoardWrongShipException()
@@ -106,7 +336,20 @@ class GameBoard:
         self.ships.append(ship)
         self.contour(ship)
 
-    def contour(self, ship, verb=False):
+    def contour(self, ship: Ship, verb=False) -> None:
+        """
+        Метод обведения по контуру корабля.
+
+        Parameters
+        ----------
+            ship : Ship
+                объект класса корабль
+            verb : bool
+                флаг уничтожения корабля
+        Returns
+        -------
+            None
+        """
         near = [
             (-1, -1), (-1, 0), (-1, 1),
             (0, -1), (0, 0), (0, 1),
@@ -126,14 +369,40 @@ class GameBoard:
         for i, row in enumerate(self.field):
             res += f"\n{i + 1} | " + " | ".join(row) + " |"
 
-        if self.hid:
+        if self.__hid:
             res = res.replace("■", "O")
         return res
 
-    def out(self, cur_coord):
-        return not ((0 <= cur_coord.x_coord < self.size) and (0 <= cur_coord.y_coord < self.size))
+    def out(self, cur_coord: Coord) -> bool:
+        """
+        Метод проверки координаты на попадание за пределы игрового поля.
 
-    def shot(self, dot):
+        Parameters
+        ----------
+            cur_coord : Coord
+                объект проверяемой координаты
+
+        Returns
+        -------
+             : bool
+             флаг выхода за пределы игрового поля
+        """
+        return not ((0 <= cur_coord.x_coord < self.__size) and (0 <= cur_coord.y_coord < self.__size))
+
+    def shot(self, dot: Coord) -> bool:
+        """
+        Метод реализующий "выстрел" игрока.
+
+        Parameters
+        ----------
+            dot : Coord
+                координата, в которую происходит выстрел
+
+        Returns
+        -------
+             : bool
+             флаг ранения корабля
+        """
         if self.out(dot):
             raise OutBoardError()
 
@@ -159,5 +428,12 @@ class GameBoard:
         print("Мимо!")
         return False
 
-    def begin(self):
+    def begin(self) -> None:
+        """
+        Метод, обнуляющий список занятых клеток.
+
+        Returns
+        -------
+             None
+        """
         self.busy = []
