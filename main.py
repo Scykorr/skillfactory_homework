@@ -1,54 +1,33 @@
-class BinaryTree:
-    def __init__(self, value):
-        self.value = value
-        self.left_child = None
-        self.right_child = None
+def merge_sort(L):  # «разделяй»
+    if len(L) < 2:  # если кусок массива равен 2, 
+        return L[:]  # выходим из рекурсии
+    else:
+        middle = len(L) // 2  # ищем середину
+        left = merge_sort(L[:middle])  # рекурсивно делим левую часть
+        right = merge_sort(L[middle:])  # и правую
+        return merge(left, right)  # выполняем слияние
 
 
-    def insert_left(self, next_value):
-        if self.left_child is None:
-            self.left_child = BinaryTree(next_value)
+def merge(left, right):  # «властвуй»
+    result = []  # результирующий массив
+    i, j = 0, 0  # указатели на элементы
+
+    # пока указатели не вышли за границы
+    while i < len(left) and j < len(right):
+        if left[i] < right[j]:
+            result.append(left[i])
+            i += 1
         else:
-            new_child = BinaryTree(next_value)
-            new_child.left_child = self.left_child
-            self.left_child = new_child
-        return self
+            result.append(right[j])
+            j += 1
 
+    # добавляем хвосты
+    while i < len(left):
+        result.append(left[i])
+        i += 1
 
-    def insert_right(self, next_value):
-        if self.right_child is None:
-            self.right_child = BinaryTree(next_value)
-        else:
-            new_child = BinaryTree(next_value)
-            new_child.right_child = self.right_child
-            self.right_child = new_child
-        return self
+    while j < len(right):
+        result.append(right[j])
+        j += 1
 
-
-    def pre_order(self):
-          # процедура обработки
-        print(self.value)
-
-        if self.left_child is not None:  # если левый потомок существует
-            self.left_child.pre_order()  # рекурсивно вызываем функцию
-
-
-        if self.right_child is not None:  # если правый потомок существует
-            self.right_child.pre_order()  # рекурсивно вызываем функцию
-
-
-A_node = BinaryTree('2')
-A_node.insert_left('7')
-A_node.left_child.insert_left('2')
-A_node.left_child.insert_right('6')
-A_node.left_child.right_child.insert_left('5')
-A_node.left_child.right_child.insert_right('11')
-A_node.insert_right('5')
-A_node.right_child.insert_right('9')
-A_node.right_child.right_child.insert_left('4')
-
-A_node.pre_order()
-
-"""
-https://hci.fenster.name/304y/lab3/
-"""
+    return result
