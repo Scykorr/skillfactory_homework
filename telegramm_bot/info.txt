@@ -1,0 +1,8 @@
+RateFASt
+
+RateFAStBot
+
+Use this token to access the HTTP API:
+6839161996:AAGnDZ4gssYRKp4101jKjHk3NkfQOCGrbW0
+
+For a description of the Bot API, see this page: https://core.telegram.org/bots/api
