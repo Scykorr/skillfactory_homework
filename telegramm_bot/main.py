@@ -1,10 +1,10 @@
 import telebot
-from config import telegramm_token, currencies
-from utils import ConversionException, CryptoConverter
+from config import telegram_token, currencies
+from extensions import APIException, CryptoConverter
 
 
 def main():
-    bot = telebot.TeleBot(telegramm_token)
+    bot = telebot.TeleBot(telegram_token)
 
     @bot.message_handler(commands=['start', 'help'])
     def handle_start_help(message: telebot.types.Message):
@@ -35,11 +35,11 @@ def main():
             values = message.text.split(' ')
 
             if len(values) != 3:
-                raise ConversionException('Неверное количество параметров!')
+                raise APIException('Неверное количество параметров!')
 
             base, quote, amount = values
             total_base = CryptoConverter.get_price(base, quote, amount)
-        except ConversionException as e:
+        except APIException as e:
             bot.reply_to(message, f'Ошибка пользователя.\n{e}')
         except Exception as e:
             bot.reply_to(message, f'Не удалось обработать команду{e}')
