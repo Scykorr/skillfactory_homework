@@ -1,6 +1,7 @@
 import json
 import requests
 from config import currencies
+from pprint import pprint
 
 
 class ConversionException(Exception):
@@ -29,7 +30,9 @@ class CryptoConverter:
         except ValueError:
             raise ConversionException(f'Не удалось обработать количество {amount}')
 
-        main_request = requests.get(f'https://min-api.cryptocompare.com/data/price?'
-                                    f'fsym={base_ticker}&tsyms={quote_ticker}')
-        total_base = float(json.loads(main_request.content)[currencies[base]]) * amount
-        return total_base
+        main_request = requests.get(f'https://openexchangerates.org/api/latest.json?app_id=a03fd78882a74dd48de13b9ec3f26e72'
+                                    f'&base={base_ticker}&symbols={quote_ticker}')
+        pprint(main_request)
+        print(type(main_request))
+        total_quote = float(json.loads(main_request.content)['rates'][currencies[quote]]) * amount
+        return total_quote
