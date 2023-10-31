@@ -1,10 +1,14 @@
 import telebot
-from config import telegram_token, currencies
+from config import currencies
 from extensions import APIException, CryptoConverter
+import os
+from dotenv import load_dotenv, find_dotenv
+
+load_dotenv(find_dotenv())
 
 
 def main():
-    bot = telebot.TeleBot(telegram_token)
+    bot = telebot.TeleBot(os.getenv('telegram_token'))
 
     @bot.message_handler(commands=['start', 'help'])
     def handle_start_help(message: telebot.types.Message):

@@ -1,6 +1,10 @@
 import json
 import requests
-from config import currencies, api_token
+from config import currencies
+import os
+from dotenv import load_dotenv, find_dotenv
+
+load_dotenv(find_dotenv())
 
 
 class APIException(Exception):
@@ -29,6 +33,6 @@ class CryptoConverter:
         except ValueError:
             raise APIException(f'Не удалось обработать количество: {amount}')
 
-        main_request = requests.get(f'https://v6.exchangerate-api.com/v6/{api_token}/pair/{base_ticker}/{quote_ticker}')
+        main_request = requests.get(f'https://v6.exchangerate-api.com/v6/{os.getenv('api_token')}/pair/{base_ticker}/{quote_ticker}')
         total_quote = float(json.loads(main_request.content)['conversion_rate'] * amount)
         return total_quote
