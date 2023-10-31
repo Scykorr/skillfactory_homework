@@ -42,6 +42,8 @@ def main():
                 raise APIException('Неверное количество параметров!')
 
             base, quote, amount = values
+            base = base.lower()
+            quote = quote.lower()
             total_base = CryptoConverter.get_price(base, quote, amount)
         except APIException as e:
             bot.reply_to(message, f'Ошибка пользователя.\n{e}')
