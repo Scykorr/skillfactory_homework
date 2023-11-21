@@ -1,2 +1,1 @@
-# skillfactory_homework
-# my study repo with simple proggrams for all :)
+my study repo with simple proggrams for all :)
